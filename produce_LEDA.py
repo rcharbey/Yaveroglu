@@ -78,6 +78,8 @@ def multiple_convert_ndump2(list_egos):
             
         
 list_egos = grab_list_egos()
+multiple_convert_LEDA(list_egos)
+multiple_convert_ndump2(list_egos)
 
             
 
