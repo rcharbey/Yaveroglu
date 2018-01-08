@@ -52,6 +52,9 @@ def convert_ndump2(ego):
     ndump2_fname = '{}.ndump2'.format(ego)
     with open(output_folder+ndump2_fname,'w') as to_write:
         csv_w = csv.writer(to_write, delimiter=' ')
+        if not os.path.isfile('%s/results/positions_per_alters/%s.csv' % (home, ego)):
+            print ego
+            return
         with open('%s/results/positions_per_alters/%s.csv' % (home, ego),'r') as to_read:
             csv_r = csv.reader(to_read, delimiter=';')
             for line in csv_r:
