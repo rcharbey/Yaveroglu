@@ -52,7 +52,7 @@ def convert_ndump2(ego):
     ndump2_fname = '{}.ndump2'.format(ego)
     with open(output_folder+ndump2_fname,'w') as to_write:
         csv_w = csv.writer(to_write, delimiter=' ')
-        with open('%s/results/positions_per_alters/%s.csv.csv' % (home, ego),'r') as to_read:
+        with open('%s/results/positions_per_alters/%s.csv' % (home, ego),'r') as to_read:
             csv_r = csv.reader(to_read, delimiter=';')
             for line in csv_r:
                 csv_w.writerow(line)  
@@ -78,7 +78,7 @@ def multiple_convert_ndump2(list_egos):
             
         
 list_egos = grab_list_egos()
-multiple_convert_LEDA(list_egos)
+#multiple_convert_LEDA(list_egos)
 multiple_convert_ndump2(list_egos)
 
             
