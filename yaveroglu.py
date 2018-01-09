@@ -156,6 +156,7 @@ class MatrixReader(multiprocessing.Process):
                 ndumpName = self.work_queue.get_nowait()
                 signatures = readSignatures('{0}.ndump2'.format(ndumpName))
                 formatted = formatSignatures(signatures, self.testMode)
+                print formatted
                 if not formatted:
                     continue
                 correlMat = computeCorrelMat(formatted)
