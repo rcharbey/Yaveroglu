@@ -123,20 +123,20 @@ def formatSignatures(signList, testMode):
 
 # Compute the correlation matrix without isnan values by adding a dummy signature
 def computeCorrelMat(formattedSigns):
-
-	length = len(formattedSigns[0])
+    print formattedSigns
+    length = len(formattedSigns[0])
 
 	# Add the dummy signature for some noise
-	formattedSigns.append([1] * length)
+    formattedSigns.append([1] * length)
 
 	# Compute the ranking for the Spearman's correlation coefficient computation
-	rankList = []
-	for i in range(length):
+    rankList = []
+    for i in range(length):
 		rankList.append(stats.mstats.rankdata([val[i] for val in formattedSigns]))
 
-	correlMat = numpy.corrcoef(rankList, rowvar = 1)
+    correlMat = numpy.corrcoef(rankList, rowvar = 1)
 
-	return correlMat
+    return correlMat
 
 
 # The parallel reading class to compute the orbit correlation matrices depending on the test mode
