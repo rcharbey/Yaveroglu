@@ -123,7 +123,6 @@ def formatSignatures(signList, testMode):
 
 # Compute the correlation matrix without isnan values by adding a dummy signature
 def computeCorrelMat(formattedSigns):
-    print formattedSigns
     length = len(formattedSigns[0])
 
 	# Add the dummy signature for some noise
@@ -155,10 +154,10 @@ class MatrixReader(multiprocessing.Process):
             #get a task
             try:
                 ndumpName = self.work_queue.get_nowait()
-                print ndumpName
-                print 'yo'
                 signatures = readSignatures('{0}.ndump2'.format(ndumpName))
                 formatted = formatSignatures(signatures, self.testMode)
+                if not formatted:
+                    continue
                 correlMat = computeCorrelMat(formatted)
 
                 self.result_queue.put((ndumpName, correlMat))
