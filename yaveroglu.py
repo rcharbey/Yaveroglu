@@ -141,29 +141,29 @@ def computeCorrelMat(formattedSigns):
 
 # The parallel reading class to compute the orbit correlation matrices depending on the test mode
 class MatrixReader(multiprocessing.Process):
-	def __init__(self, work_queue, result_queue, testMode):
-		multiprocessing.Process.__init__(self)
+    def __init__(self, work_queue, result_queue, testMode):
+        multiprocessing.Process.__init__(self)
+        self.work_queue 	= work_queue
+        self.result_queue 	= result_queue
+        self.testMode 		= testMode
+        self.kill_received 	= False
 
-		self.work_queue 	= work_queue
-		self.result_queue 	= result_queue
-		self.testMode 		= testMode
-		self.kill_received 	= False
 
 
-	def run(self):
-		while not self.kill_received:
-			# Get a task
-			try:
-				ndumpName = self.work_queue.get_nowait()
-                 print ndumpName
-				signatures = readSignatures('{0}.ndump2'.format(ndumpName))
-				formatted = formatSignatures(signatures, self.testMode)
-				correlMat = computeCorrelMat(formatted)
+    def run(self):
+        while not self.kill_received:
+            #get a task
+            try:
+                ndumpName = self.work_queue.get_nowait()
+                print ndumpName
+                signatures = readSignatures('{0}.ndump2'.format(ndumpName))
+                formatted = formatSignatures(signatures, self.testMode)
+                correlMat = computeCorrelMat(formatted)
 
-				self.result_queue.put((ndumpName, correlMat))
+                self.result_queue.put((ndumpName, correlMat))
 
-			except Queue.Empty:
-				pass
+            except Queue.Empty:
+                pass
 
 
 # Computes the orbit correlation matrices for all the correlation matrices provided in allIndexes
